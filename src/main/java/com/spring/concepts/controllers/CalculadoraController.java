@@ -4,7 +4,7 @@ package com.spring.concepts.controller;
 
 public class CalculadoraController {
     // /calculadora/somar/10/20
-    @GetMapping
+    @GetMapping("/calculadora")
     public somarNumeros(int a, int b){
         return a + b;
     }
