@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.concepts.models.entities.Produto;
+import com.spring.concepts.models.repositories.ProdutoRepository;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -14,12 +15,18 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    @PostMapping
+    /* @PostMapping
     public @ResponseBody Produto novoProduto(
         @RequestParam String nome,
         @RequestParam double preco,
         @RequestParam double desconto){
         Produto produto = new Produto(nome, preco, desconto);
+        produtoRepository.save(produto);
+        return produto;
+    } */
+
+    @PostMapping
+    public @ResponseBody Produto novoProduto(@Valid Produto produto){
         produtoRepository.save(produto);
         return produto;
     }
