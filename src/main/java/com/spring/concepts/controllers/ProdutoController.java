@@ -25,6 +25,7 @@ public class ProdutoController {
         return produto;
     } */
 
+    @PostMapping
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
     public @ResponseBody Produto novoProduto(@Valid Produto produto){
         produtoRepository.save(produto);
@@ -36,6 +37,14 @@ public class ProdutoController {
         return produtoRepository.findAll();
     }
 
+
+    @GetMapping(path = "/pagina/{numeroPagina}")
+    public Iterable<Produto> obterProdutosPorPagina(
+        @PathVariable int numeroPagina, @PathVariable int qtdePagina){
+            if(qtdePagina >= 5) qtdePagina = 5;
+            Pageable page = PageRequest.of(numeroPagina, qtdePagina);
+            return produtoRepository.findAll(page);
+    }
     @GetMapping(path="/{id}")
     public Optional<Produto> obterProdutoPorId(@PathVariable int id){
         return produtoRepository.findById(id);
